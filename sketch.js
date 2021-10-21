@@ -3,11 +3,8 @@ const canvasHeight = window.innerHeight
 let input;
 let volume;
 let analyzer;
-// let protestCrowd
-// let amp;
 let myLevels = [];
 let started  = false;
-// let loaded = false;
 
 
 function setup() {
@@ -17,8 +14,6 @@ function setup() {
 
 function draw() {
   background(0);
-  // console.log(volume)
-
   if (!started) {
     drawStartScreen();
   } else {
@@ -34,13 +29,14 @@ function drawStartScreen() {
 }
 
 function drawAmplitude(){
-  //get the current amplitude
-  
   if (input) {
     volume = input.getLevel();
+      // let vol = amp.getLevel();
+    console.log("got Volume:", volume);
     if (volume > 0){
       //if current amplitude is greater than zero, push it to levels array
       myLevels.push(volume);
+      console.log(volume);
     }
 
     // if the number of levels is bigger than half of the screen, delete the first one
@@ -49,8 +45,6 @@ function drawAmplitude(){
       myLevels.splice(0, 1);
     }
   }
-  // let vol = amp.getLevel();
-
 
   // no fill color ie just a line
   let color1 = map(volume, 0.0, 0.2, 0, 255, true);
@@ -63,10 +57,7 @@ function drawAmplitude(){
 
   myLevels.forEach((level, i) => {
     // remap the value
-    let radius = map(level, 0.001, 0.1, min(canvasHeight, canvasWidth) / 4, 0, true);
-    // let radius = 100
-    // console.log(y);
-    // const radius = level
+    let radius = map(level, 0.001, 0.1, min(canvasHeight, canvasWidth) / 4, min(canvasHeight, canvasWidth) / 2, true);
     const x = - radius * sin(i) + canvasWidth / 2;
     const y = - radius * cos(i) + canvasHeight / 2;
 
@@ -86,13 +77,9 @@ function drawAmplitude(){
 function mousePressed() {
   started = true
   // Create an Audio input
+  console.log("creating Input");
   input = new p5.AudioIn();
   // amp = new p5.Amplitude();
   input.start();
+  console.log("input created");
 }
-
-
-
-// [finished code]()
-// add a note that sound library must be included
-// we use this "height" and "width" without defining them
