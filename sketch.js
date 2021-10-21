@@ -63,7 +63,7 @@ function drawAmplitude(){
 
   myLevels.forEach((level, i) => {
     // remap the value
-    let radius = map(level, 0.001, 0.4, 300, 0);
+    let radius = map(level, 0.001, 0.1, min(canvasHeight, canvasWidth) / 4, 0, true);
     // let radius = 100
     // console.log(y);
     // const radius = level
